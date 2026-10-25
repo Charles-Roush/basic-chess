@@ -18,11 +18,7 @@ typedef struct
 
 } game_stats;
 
-typedef struct
-{
-    int x;
-    int y;
-} vector2;
+#include "vector2.h"
 
 vector2 get_pos(char *input);
 

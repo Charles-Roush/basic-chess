@@ -32,7 +32,7 @@ void update_board(vector2 before_pos, vector2 after_pos, chess_piece board[BOARD
     
 }
 
-chess_piece init_board(chess_piece board[BOARD_SIZE][BOARD_SIZE]) {
+void init_board(chess_piece board[BOARD_SIZE][BOARD_SIZE]) {
     for (int y = 0; y < BOARD_SIZE; y++) {
         for (int x = 0; x < BOARD_SIZE; x++) {
             board[y][x].type = EMPTY;

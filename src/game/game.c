@@ -19,13 +19,19 @@ bool check_valid_move(vector2 before_pos, vector2 after_pos, white_or_black turn
     chess_piece after_piece = board[after_pos.y][after_pos.x]; after_piece.first_turn = true;
 
 
+    if (before_piece.type == EMPTY){
+        printf("empty square\n");
+        return false;
+    }
+
     if (before_piece.color != turn){
         printf("not turn\n"); 
         return false;
     }
 
-    if (before_piece.type == EMPTY){
-        printf("empty square\n");
+    if (after_piece.type != EMPTY && after_piece.color == turn){
+        printf("can't take your own piece\n");
+        return false;
     }
 
     if (before_pos.x == after_pos.x && before_pos.y == after_pos.y){
@@ -125,7 +131,7 @@ vector2 tokenize_board_pos(char *move_string)
                 pos.y = y;
             }
         } else if (isalpha(move_string[i])) {
-            int x = move_string[i] - 'a';
+            int x = tolower(move_string[i]) - 'a';
             if (x > -1 && x < 8)
             {
                 pos.x = x;

@@ -6,13 +6,16 @@
 
 bool check_valid_straight(vector2 before_pos, vector2 after_pos, chess_piece board[BOARD_SIZE][BOARD_SIZE], vector2 change, vector2 difference)
 {
-    white_or_black before_color = board[before_pos.y][before_pos.x].color;  // y, x order
+    if (difference.x != 0 && difference.y != 0)  // Must be a straight line
+    {
+        return false;
+    }
 
     if (change.y != 0)  // Vertical movement (along the y-axis)
     {
         for (int y = before_pos.y + change.y; y != after_pos.y; y += change.y)  // Iterate vertically
         {
-            if (board[y][before_pos.x].color == before_color && board[y][before_pos.x].type != EMPTY)  // [y][x] access
+            if (board[y][before_pos.x].type != EMPTY)  // [y][x] access
             {
                 return false;  // Piece blocking the path
             }
@@ -23,7 +26,7 @@ bool check_valid_straight(vector2 before_pos, vector2 after_pos, chess_piece boa
     {
         for (int x = before_pos.x + change.x; x != after_pos.x; x += change.x)  // Iterate horizontally
         {
-            if (board[before_pos.y][x].color == before_color && board[before_pos.y][x].type != EMPTY)  // [y][x] access
+            if (board[before_pos.y][x].type != EMPTY)  // [y][x] access
             {
                 return false;  
             }
@@ -42,13 +45,11 @@ bool check_valid_diagonal(vector2 before_pos, vector2 after_pos, chess_piece boa
         return false;
     }
 
-    white_or_black before_color = board[before_pos.y][before_pos.x].color;  // y, x order
-    
     for (int x = before_pos.x + change.x, y = before_pos.y + change.y; 
          x != after_pos.x && y != after_pos.y; 
          x += change.x, y += change.y)  // Iterate diagonally
     {
-        if (board[y][x].color == before_color && board[y][x].type != EMPTY)  // [y][x] access
+        if (board[y][x].type != EMPTY)  // [y][x] access
         {
             printf("pieces in between\n"); 
             return false;  // Piece blocking the path
@@ -64,7 +65,7 @@ bool check_pawn(chess_piece before_piece, chess_piece after_piece, vector2 befor
     return false;
     }
     
-    if (before_piece.first_turn == false && abs(difference.y > 1)){
+    if (before_piece.first_turn == false && abs(difference.y) > 1){
     return false;
     }
     

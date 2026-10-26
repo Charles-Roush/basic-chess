@@ -1,4 +1,4 @@
-# basic_chess
+# basic-chess
 A basic two-player chess game in C, played in the terminal.
 
 ## Build and run
